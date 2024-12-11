@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Kami</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header Kontak */
+        .contact-header {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .contact-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-header p {
+            font-size: 1.2rem;
+        }
+
+        /* Kontainer Utama */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Kontak */
+        .contact-form h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #2575fc;
+            text-align: center;
+        }
+
+        .contact-form label {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .contact-form button {
+            background: #2575fc;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #6a11cb;
+        }
+
+        /* Informasi Kontak */
+        .contact-info {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-info p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        body {
+            animation: fadeIn 2s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="contact-header">
+        <h1>Hubungi Timearth</h1>
+        <p>Timearth siap membantu menjawab pertanyaan Anda :)</p>
+    </header>
+
+    <!-- Kontainer Utama -->
+    <div class="container">
+        <!-- Formulir Kontak -->
+        <section class="contact-form">
+            <h2>Kirim Pesan Anda</h2>
+            <form action="#" method="POST">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+                
+                <label for="message">Pesan</label>
+                <textarea id="message" name="message" placeholder="Tulis pesan Anda di sini" required></textarea>
+                
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </section>
+
+        <!-- Informasi Kontak -->
+        <section class="contact-info">
+            <h3>Informasi Kontak</h3>
+            <p>Email: ummu.123290027@student.itera.ac.id</p>
+            <p>Telepon: +62 8xx-xxxx-xxxx</p>
+            <p>Alamat: Jl. Bawean 3 No.10, Lampung, Indonesia</p>
+        </section>
+    </div>
+</body>
+</html>

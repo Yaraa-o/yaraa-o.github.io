@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Tekanan Atmosfer</title>
+    <style>
+        /* Background animasi salju */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0099FF, #00CCFF);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animasi salju */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 24px;
+            z-index: 10;
+            user-select: none;
+            animation: snow 10s linear infinite;
+        }
+
+        @keyframes snow {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Mengacak posisi salju */
+        .snowflake:nth-child(odd) {
+            animation-duration: 12s;
+        }
+
+        .snowflake:nth-child(even) {
+            animation-duration: 15s;
+        }
+
+        /* Kontainer */
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 2px solid #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .input-group input:focus {
+            border-color: #00FF00;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #00FF00;
+            color: #000;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #32CD32;
+        }
+
+        .output {
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .output span {
+            font-weight: bold;
+            color: #00FF00;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Salju -->
+    <div class="snowflakes">
+        <div class="snowflake" style="left: 10%;">&#10052;</div>
+        <div class="snowflake" style="left: 30%;">&#10052;</div>
+        <div class="snowflake" style="left: 50%;">&#10052;</div>
+        <div class="snowflake" style="left: 70%;">&#10052;</div>
+        <div class="snowflake" style="left: 90%;">&#10052;</div>
+    </div>
+
+    <!-- Kontainer Kalkulator -->
+    <div class="container">
+        <h1>Kalkulator Tekanan Atmosfer</h1>
+        <div class="input-group">
+            <label for="elevation">Ketinggian (meter):</label>
+            <input type="number" id="elevation" placeholder="Masukkan ketinggian (m)" />
+        </div>
+        <button class="btn" onclick="calculatePressure()">Hitung Tekanan</button>
+        <div class="output" id="result">
+            <span id="pressureResult">Tekanan akan ditampilkan di sini</span>
+        </div>
+    </div>
+
+    <!-- Skrip JavaScript -->
+    <script>
+        function calculatePressure() {
+            const elevation = parseFloat(document.getElementById('elevation').value);
+            if (isNaN(elevation) || elevation < 0) {
+                alert("Masukkan ketinggian yang valid.");
+                return;
+            }
+
+            // Konstanta untuk perhitungan
+            const P0 = 101325; // Tekanan atmosfer pada permukaan laut (Pa)
+            const T0 = 288.15; // Temperatur standar (K)
+            const L = 0.0065; // Gradien suhu (K/m)
+            const R = 8.31447; // Konstanta gas universal (J/(mol·K))
+            const M = 0.0289644; // Massa molar udara (kg/mol)
+            const g = 9.81; // Gravitasi bumi (m/s^2)
+
+            // Metode Euler untuk menghitung tekanan atmosfer berdasarkan ketinggian
+            let pressure = P0;
+            let temperature = T0;
+            const stepSize = 100; // Langkah perhitungan (meter)
+
+            for (let h = 0; h <= elevation; h += stepSize) {
+                const tempGradient = L * h;
+                temperature = T0 - tempGradient;
+                pressure -= (g * M * pressure * stepSize) / (R * temperature);
+            }
+
+            document.getElementById('pressureResult').innerHTML = `Tekanan atmosfer pada ${elevation} meter adalah ${pressure.toFixed(2)} Pa`;
+        }
+    </script>
+</body>
+</html>

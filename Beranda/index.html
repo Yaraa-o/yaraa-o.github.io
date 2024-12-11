@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Header */
+        .main-header {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .main-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .main-header p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            animation: slideUp 1.5s ease-in-out;
+        }
+
+        .main-header .btn {
+            background: #fff;
+            color: #333;
+            padding: 10px 20px;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .main-header .btn:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Bagian Tentang */
+        .about {
+            padding: 50px 20px;
+            background: #fff;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .about h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #6a11cb;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        /* Bagian Fitur */
+        .features {
+            padding: 50px 20px;
+            background: #f4f4f9;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .features h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2575fc;
+            animation: slideUp 1s ease-in-out;
+        }
+
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <h1>Selamat Datang di Beranda</h1>
+            <p>Timearth untuk berbagai informasi dan pengetahuan</p>
+            <a href="#about" class="btn">Pelajari Lebih Lanjut</a>
+        </div>
+    </header>
+
+    <!-- Bagian Tentang -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>Tentang Timearth</h2>
+            <p>Timearth adalah penyedia informasi tentang atmosfer dan hubungan tekanan atmosfer terhadap ketinggian.</p>
+        </div>
+    </section>
+
+    <!-- Bagian Fitur -->
+    <section class="features">
+        <div class="container">
+            <h2>ADA APA SAJA YA?</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h3>Kalkulator Tekanan</h3>
+                    <p>Simulasi tekanan atmosfer dengan akurasi tinggi.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Simulator Tekanan</h3>
+                    <p>Simulator yang menggambarkan tekanan udara.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Penjelasan Singkat</h3>
+                    <p>Tentang penjelasan singkat atmosfer dan hubungannya dengan tekanan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 TIMEARTH. Semoga Bermanfaat ;)</p>
+        </div>
+    </footer>
+</body>
+</html>

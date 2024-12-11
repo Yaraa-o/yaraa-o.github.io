@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulator Tekanan Pesawat Terbang</title>
+    <style>
+        /* Background Animasi Awan */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animasi Awan */
+        .clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: moveCloud 30s linear infinite;
+        }
+
+        .cloud1 {
+            width: 300px;
+            height: 150px;
+            top: 30px;
+            left: -250px;
+            animation-duration: 35s;
+        }
+
+        .cloud2 {
+            width: 350px;
+            height: 180px;
+            top: 100px;
+            left: -300px;
+            animation-duration: 25s;
+        }
+
+        .cloud3 {
+            width: 250px;
+            height: 120px;
+            top: 200px;
+            left: -200px;
+            animation-duration: 40s;
+        }
+
+        @keyframes moveCloud {
+            100% {
+                transform: translateX(100vw);
+            }
+        }
+
+        /* Kontainer */
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 2px solid #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .input-group input:focus {
+            border-color: #a5c9e0;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #a5c9e0;
+            color: #000;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #a5c9e0;
+        }
+
+        .output {
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .output span {
+            font-weight: bold;
+            color: #a5c9e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animasi Awan -->
+    <div class="clouds">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+        <div class="cloud cloud3"></div>
+    </div>
+
+    <!-- Kontainer Kalkulator -->
+    <div class="container">
+        <h1>Simulator Tekanan Pesawat Terbang</h1>
+        <div class="input-group">
+            <label for="elevation">Ketinggian (meter):</label>
+            <input type="number" id="elevation" placeholder="Masukkan ketinggian (m)" />
+        </div>
+        <button class="btn" onclick="calculatePressure()">Hitung Tekanan</button>
+        <div class="output" id="result">
+            <span id="pressureResult">Tekanan akan ditampilkan di sini</span>
+        </div>
+    </div>
+
+    <!-- Skrip JavaScript -->
+    <script>
+        function calculatePressure() {
+            const elevation = parseFloat(document.getElementById('elevation').value);
+            if (isNaN(elevation) || elevation < 0) {
+                alert("Masukkan ketinggian yang valid.");
+                return;
+            }
+
+            // Konstanta untuk perhitungan
+            const P0 = 101325; // Tekanan atmosfer pada permukaan laut (Pa)
+            const T0 = 288.15; // Temperatur standar (K)
+            const L = 0.0065; // Gradien suhu (K/m)
+            const R = 8.31447; // Konstanta gas universal (J/(mol·K))
+            const M = 0.0289644; // Massa molar udara (kg/mol)
+            const g = 9.81; // Gravitasi bumi (m/s^2)
+
+            // Runge-Kutta method for pressure calculation
+            function rungeKutta(elevation) {
+                let pressure = P0;
+                let temperature = T0;
+                let stepSize = 100; // Step size in meters
+
+                // Runge-Kutta method
+                function f(pressure, temperature) {
+                    return (-g * M * pressure) / (R * temperature); // Differential equation for pressure
+                }
+
+                let k1, k2, k3, k4;
+                for (let h = 0; h <= elevation; h += stepSize) {
+                    // Apply Runge-Kutta 4th order method
+                    k1 = f(pressure, temperature);
+                    k2 = f(pressure + 0.5 * stepSize * k1, temperature + 0.5 * stepSize * k1);
+                    k3 = f(pressure + 0.5 * stepSize * k2, temperature + 0.5 * stepSize * k2);
+                    k4 = f(pressure + stepSize * k3, temperature + stepSize * k3);
+
+                    // Update pressure for next iteration
+                    pressure += (stepSize / 6) * (k1 + 2 * k2 + 2 * k3 + k4);
+                }
+                return pressure;
+            }
+
+            const pressureAtAltitude = rungeKutta(elevation); // Calculate pressure using Runge-Kutta method
+
+            // Display the result
+            document.getElementById('pressureResult').innerHTML = `Tekanan atmosfer pada ${elevation} meter adalah ${pressureAtAltitude.toFixed(2)} Pa`;
+        }
+    </script>
+</body>
+</html>
+
